@@ -129,5 +129,45 @@
       "medium": "Medium priority",
       "low": "Low priority"
     }
+  },
+  "jobAnalysis": {
+    "buttonLabel": "JD review",
+    "buttonAria": "Open JD review",
+    "modalTitle": "JD resume review",
+    "currentResume": "Current resume",
+    "professionalReview": "Professional review",
+    "jdPlaceholder": "Paste the full target JD. The review is generated from the currently saved resume.",
+    "jdHint": "The current draft is saved first; only visible resume content and this JD are used.",
+    "jdRequired": "Enter a job description first",
+    "startAnalysis": "Start review",
+    "analyzeAgain": "Review again",
+    "analysisFailed": "JD resume review failed",
+    "historyTitle": "Review history",
+    "historyLoading": "Loading review history",
+    "historyPlaceholder": "Select a saved review",
+    "historyLoadFailed": "Failed to load JD review history",
+    "historyDetailLoadFailed": "Failed to load JD review details",
+    "historyOption": "{{time}} · {{score}} pts {{stale}}",
+    "staleShort": "Stale",
+    "staleTitle": "This review is stale",
+    "staleDescription": "The resume has changed. Run a new review before applying suggestions so they target the correct content.",
+    "appliedAndStale": "Suggestion applied. This review is now marked stale.",
+    "scoreLabel": "JD match score {{score}}",
+    "scoreUnit": "pts",
+    "scoreCompleted": "JD match score",
+    "current": "Current content",
+    "generatedAt": "Generated at: {{time}}",
+    "firstImpressionTitle": "First impression",
+    "requirementsTitle": "Requirement matches",
+    "sectionHeatmapTitle": "Section match",
+    "critiquesTitle": "Priority improvements",
+    "suggestionsTitle": "Applicable suggestions ({{count}})",
+    "questionsTitle": "Information to confirm",
+    "emptyDescription": "Paste a target JD to receive applicable resume improvements.",
+    "severity": {
+      "high": "High priority",
+      "medium": "Medium priority",
+      "low": "Low priority"
+    }
   }
 }

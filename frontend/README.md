@@ -17,11 +17,11 @@ This package contains the React 19 + TypeScript + Vite application for Smart Res
 
 | Command | Purpose |
 | --- | --- |
-| `npm install` | Install dependencies |
-| `npm run dev` | Start the Vite development server |
-| `npm run build` | Type-check and build the production bundle |
-| `npm run lint` | Run ESLint |
-| `npm run preview` | Preview the production build locally |
+| `pnpm install --frozen-lockfile` | Install dependencies |
+| `pnpm dev` | Start the Vite development server |
+| `pnpm build` | Type-check and build the production bundle |
+| `pnpm lint` | Run ESLint |
+| `pnpm preview` | Preview the production build locally |
 
 ## Local Development
 
@@ -44,8 +44,9 @@ cd backend
 
 ```bash
 cd frontend
-npm install
-npm run dev
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
 Open the URL printed by Vite, usually `http://localhost:5173`.

@@ -6,6 +6,7 @@ public enum AiFeatureType {
     RESUME_TRANSLATION("resume_translation"),
     RESUME_COVER_LETTER("resume_cover_letter"),
     RESUME_SCORE("resume_score"),
+    RESUME_JOB_ANALYSIS("resume_job_analysis"),
     RESUME_IMPORT("resume_import"),
     INTERVIEW("interview"),
     INTERVIEW_REPORT("interview_report");

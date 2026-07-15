@@ -71,6 +71,47 @@ export interface AiResumeSuggestionPlan {
   summary?: string
 }
 
+export interface AiResumeJobAnalysisRequest {
+  resumeId: string
+  jobDescription: string
+}
+
+export interface AiResumeJobAnalysisCritique {
+  severity: 'high' | 'medium' | 'low' | string
+  section: string
+  index: number | null
+  issue: string
+  rationale: string
+  recommendation: string
+}
+
+export interface AiResumeJobAnalysisResponse {
+  analysisId: string
+  score: number
+  summary: string
+  firstImpression: string
+  requirementMatches: AiResumeRequirementMatch[]
+  sectionHeatmap: AiResumeSectionHeatmap[]
+  critiques: AiResumeJobAnalysisCritique[]
+  suggestionPlan: AiResumeSuggestionPlan
+  questionsToImprove: string[]
+  stale: boolean
+  generatedAt: string
+}
+
+export interface AiResumeJobAnalysisSummary {
+  analysisId: string
+  jobDescription: string
+  score: number
+  summary: string
+  stale: boolean
+  generatedAt: string
+}
+
+export interface AiResumeJobAnalysisListResponse {
+  items: AiResumeJobAnalysisSummary[]
+}
+
 export interface AiChatConversation {
   conversationId: string
   title: string

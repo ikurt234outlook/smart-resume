@@ -12,6 +12,9 @@ import type {
   AiCoverLetter,
   AiCoverLetterGenerateRequest,
   AiCoverLetterUpdateRequest,
+  AiResumeJobAnalysisListResponse,
+  AiResumeJobAnalysisRequest,
+  AiResumeJobAnalysisResponse,
   AiResumeTranslationRequest,
   AiResumeTranslationResponse,
   AiResumeScoreRequest,
@@ -49,6 +52,26 @@ export async function scoreAiResume(payload: AiResumeScoreRequest) {
     method: 'POST',
     body: payload,
   })
+}
+
+export async function createAiResumeJobAnalysis(payload: AiResumeJobAnalysisRequest) {
+  return requestJson<AiResumeJobAnalysisResponse>('/api/ai/resume-job-analyses', {
+    method: 'POST',
+    body: payload,
+  })
+}
+
+export async function listAiResumeJobAnalyses(resumeId: string) {
+  return requestJson<AiResumeJobAnalysisListResponse>(
+    '/api/ai/resumes/' + encodeURIComponent(resumeId) + '/job-analyses',
+  )
+}
+
+export async function getAiResumeJobAnalysis(resumeId: string, analysisId: string) {
+  return requestJson<AiResumeJobAnalysisResponse>(
+    '/api/ai/resumes/' + encodeURIComponent(resumeId)
+    + '/job-analyses/' + encodeURIComponent(analysisId),
+  )
 }
 
 export async function rewriteAiResumeBullet(payload: AiBulletRewriteRequest) {

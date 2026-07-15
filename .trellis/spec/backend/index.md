@@ -25,6 +25,7 @@ At the current bootstrap stage, these documents define the initial engineering b
 | [Interview Simulation](./interview-simulation.md) | Interview creation/list/detail contract, company context extraction, prompt injection rules | Active |
 | [AI Resume Chat](./ai-resume-chat.md) | Smart Resume Assistant prompt contract, suggestion sentinel protocol, SSE event extension | Active |
 | [AI Resume Scoring](./ai-resume-scoring.md) | Resume scoring API and AI-backed response contract | Active |
+| [AI Resume Job Analysis](./ai-resume-job-analysis.md) | Persisted JD-specific review, match evidence, critique, and editor-safe suggestions | Active |
 | [AI Resume Translation](./ai-resume-translation.md) | Full-resume Chinese/English translation API, conservative normalization, editor copy/overwrite flow | Active |
 | [AI Cover Letter Generation](./ai-cover-letter.md) | Persisted cover-letter generation API, editable history, optional application linkage | Active |
 | [Auth & Multi-User](./auth-multi-user.md) | Authentication, session, token, per-user data isolation | Active |

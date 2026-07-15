@@ -22,6 +22,7 @@ The frontend should be organized around product features rather than a flat comp
 | [State Management](./state-management.md) | Local state, global state, server state | Bootstrap baseline |
 | [Quality Guidelines](./quality-guidelines.md) | Code standards, forbidden patterns | To refine |
 | [Type Safety](./type-safety.md) | Type patterns, validation | Bootstrap baseline |
+| [Package Management](./quality-guidelines.md#scenario-pnpm-managed-frontend-builds) | pnpm dependency and container build contracts | Active |
 
 ---
 
@@ -29,6 +30,7 @@ The frontend should be organized around product features rather than a flat comp
 
 * UI library: Ant Design
 * Language: TypeScript
+* Package manager: pnpm 10.34.5 via Corepack
 * Product type: browser-based resume workspace
 * Primary concerns: form-heavy editing, preview rendering, export/share interactions
 

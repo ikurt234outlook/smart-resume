@@ -350,7 +350,7 @@ docker-compose up -d database
 
 # 本地启动后端和前端
 cd backend && ./mvnw spring-boot:run
-cd frontend && npm run dev
+cd frontend && pnpm dev
 ```
 
 ## 更多信息

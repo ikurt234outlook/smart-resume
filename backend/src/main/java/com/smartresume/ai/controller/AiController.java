@@ -21,6 +21,9 @@ import com.smartresume.ai.dto.AiDtos.ListModelsRequest;
 import com.smartresume.ai.dto.AiDtos.ListModelsResponse;
 import com.smartresume.ai.dto.AiDtos.PersistedAiResumeScoreResponse;
 import com.smartresume.ai.dto.AiDtos.VendorMetadataResponse;
+import com.smartresume.ai.dto.AiResumeJobAnalysisDtos.AiResumeJobAnalysisListResponse;
+import com.smartresume.ai.dto.AiResumeJobAnalysisDtos.AiResumeJobAnalysisRequest;
+import com.smartresume.ai.dto.AiResumeJobAnalysisDtos.AiResumeJobAnalysisResponse;
 import com.smartresume.ai.provider.ChatModelProvider;
 import com.smartresume.ai.provider.ChatModelProviderRegistry;
 import com.smartresume.ai.provider.VendorMetadata;
@@ -29,6 +32,7 @@ import com.smartresume.ai.service.AiChatHistoryService;
 import com.smartresume.ai.service.AiConfigurationService;
 import com.smartresume.ai.service.AiCoverLetterService;
 import com.smartresume.ai.service.AiResumeScoringService;
+import com.smartresume.ai.service.AiResumeJobAnalysisService;
 import com.smartresume.ai.service.AiResumeTranslationService;
 import com.smartresume.common.api.ApiResponse;
 import com.smartresume.common.exception.AppException;
@@ -43,6 +47,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -54,6 +59,7 @@ public class AiController {
     private final AiAgentService aiAgentService;
     private final AiChatHistoryService aiChatHistoryService;
     private final AiResumeScoringService aiResumeScoringService;
+    private final AiResumeJobAnalysisService aiResumeJobAnalysisService;
     private final AiResumeTranslationService aiResumeTranslationService;
     private final AiCoverLetterService aiCoverLetterService;
     private final ChatModelProviderRegistry chatModelProviderRegistry;
@@ -63,6 +69,7 @@ public class AiController {
         AiAgentService aiAgentService,
         AiChatHistoryService aiChatHistoryService,
         AiResumeScoringService aiResumeScoringService,
+        AiResumeJobAnalysisService aiResumeJobAnalysisService,
         AiResumeTranslationService aiResumeTranslationService,
         AiCoverLetterService aiCoverLetterService,
         ChatModelProviderRegistry chatModelProviderRegistry
@@ -71,6 +78,7 @@ public class AiController {
         this.aiAgentService = aiAgentService;
         this.aiChatHistoryService = aiChatHistoryService;
         this.aiResumeScoringService = aiResumeScoringService;
+        this.aiResumeJobAnalysisService = aiResumeJobAnalysisService;
         this.aiResumeTranslationService = aiResumeTranslationService;
         this.aiCoverLetterService = aiCoverLetterService;
         this.chatModelProviderRegistry = chatModelProviderRegistry;
@@ -99,6 +107,30 @@ public class AiController {
     @PostMapping("/resume-score")
     public ApiResponse<AiResumeScoreResponse> scoreResume(@Valid @RequestBody AiResumeScoreRequest request) {
         return ApiResponse.success(aiResumeScoringService.scoreResume(request), "Resume scored");
+    }
+
+    @PostMapping("/resume-job-analyses")
+    public ApiResponse<AiResumeJobAnalysisResponse> analyzeResumeForJob(
+        @Valid @RequestBody AiResumeJobAnalysisRequest request
+    ) {
+        return ApiResponse.success(aiResumeJobAnalysisService.analyze(request), "Resume job analysis completed");
+    }
+
+    @GetMapping("/resumes/{resumeId}/job-analyses")
+    public ApiResponse<AiResumeJobAnalysisListResponse> listResumeJobAnalyses(
+        @PathVariable String resumeId,
+        @RequestParam(required = false) Integer limit
+    ) {
+        int resolvedLimit = limit == null ? aiResumeJobAnalysisService.defaultHistoryLimit() : limit;
+        return ApiResponse.success(aiResumeJobAnalysisService.list(resumeId, resolvedLimit));
+    }
+
+    @GetMapping("/resumes/{resumeId}/job-analyses/{analysisId}")
+    public ApiResponse<AiResumeJobAnalysisResponse> getResumeJobAnalysis(
+        @PathVariable String resumeId,
+        @PathVariable String analysisId
+    ) {
+        return ApiResponse.success(aiResumeJobAnalysisService.get(resumeId, analysisId));
     }
 
     @PostMapping("/resume-bullet-rewrite")

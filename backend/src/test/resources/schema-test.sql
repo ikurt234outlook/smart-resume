@@ -124,6 +124,18 @@ CREATE TABLE IF NOT EXISTS ai_resume_scores (
     updated_at TIMESTAMP NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS ai_resume_job_analyses (
+    id VARCHAR(64) PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    resume_id VARCHAR(64) NOT NULL REFERENCES resumes(id) ON DELETE CASCADE,
+    job_description TEXT NOT NULL,
+    resume_content_hash VARCHAR(64) NOT NULL,
+    prompt_version VARCHAR(32) NOT NULL,
+    result_json TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS ai_chat_suggestions (
     id BIGINT PRIMARY KEY,
     user_id BIGINT NOT NULL,
@@ -302,6 +314,9 @@ CREATE INDEX IF NOT EXISTS idx_ai_chat_conversations_user_resume_updated
 
 CREATE INDEX IF NOT EXISTS idx_ai_resume_scores_user_updated
     ON ai_resume_scores (user_id, updated_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_ai_resume_job_analyses_user_resume_created
+    ON ai_resume_job_analyses (user_id, resume_id, created_at DESC);
 
 CREATE UNIQUE INDEX IF NOT EXISTS uk_ai_chat_suggestions_user_conversation_suggestion
     ON ai_chat_suggestions (user_id, conversation_id, suggestion_id);

@@ -225,6 +225,68 @@ params.set('pageSize', String(query.pageSize ?? DEFAULT_PAGE_SIZE))
 
 (To be filled by the team)
 
+## Scenario: pnpm-managed frontend builds
+
+### 1. Scope / Trigger
+
+- Applies when changing dependencies, frontend build commands, or the frontend container image.
+- Covers `frontend/` only. `browser-extension/` remains an independent npm package.
+
+### 2. Signatures
+
+- Package manager: `pnpm@10.34.5`, declared by `packageManager` in `frontend/package.json`.
+- Reproducible install: `pnpm install --frozen-lockfile`.
+- Quality commands: `pnpm lint` and `pnpm build`.
+- Container build: `docker compose build frontend`.
+
+### 3. Contracts
+
+- `frontend/pnpm-lock.yaml` is the only frontend lockfile; do not add `frontend/package-lock.json`.
+- Every package imported by frontend source must be declared directly in `frontend/package.json`.
+- Docker builds must enable Corepack and install from the frozen pnpm lockfile.
+- `frontend/.dockerignore` must exclude `node_modules` and `dist` so host artifacts cannot overwrite Linux dependencies.
+- Root build scripts prefer `corepack pnpm` and may fall back to a global pnpm installation.
+
+### 4. Validation & Error Matrix
+
+- `package.json` and lockfile differ -> frozen install fails; regenerate and commit the lockfile.
+- Source imports an undeclared transitive package -> type-check may fail with `TS2307`; add it as a direct dependency.
+- Host `node_modules` enters the Docker context -> executable or platform-specific dependency failures; keep it ignored.
+- Corepack and global pnpm are both unavailable -> root scripts exit with an actionable dependency error.
+
+### 5. Good / Base / Bad Cases
+
+- Good: update `package.json` and `pnpm-lock.yaml`, then pass frozen install, lint, build, and the frontend image build.
+- Base: run `pnpm install` intentionally while changing dependencies, then verify with a frozen install.
+- Bad: run npm in `frontend/`, commit a second lockfile, or copy host `node_modules` into an image.
+
+### 6. Tests Required
+
+- `pnpm install --frozen-lockfile` completes without lockfile changes.
+- `pnpm lint` exits successfully.
+- `pnpm build` completes TypeScript and Vite production builds.
+- `docker compose build frontend` produces the Nginx image from the same frozen lockfile.
+- `bash -n build.sh start.sh` passes after package-manager command changes.
+
+### 7. Wrong vs Correct
+
+#### Wrong
+
+```dockerfile
+COPY . .
+RUN npm install
+RUN npm run build
+```
+
+#### Correct
+
+```dockerfile
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm build
+```
+
 ## Scenario: BOSS Browser Extension Extraction
 
 ### 1. Scope / Trigger

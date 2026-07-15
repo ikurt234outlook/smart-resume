@@ -5270,3 +5270,217 @@ html.resume-export-document .resume-preview-paper--page:last-child {
   border-top: 1px solid rgba(0, 0, 0, 0.04);
   padding-top: 8px;
 }
+
+.resume-job-analysis-modal .ant-modal-content,
+.resume-job-analysis-modal .ant-modal-body {
+  overflow: hidden;
+}
+
+.resume-job-analysis-panel {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  gap: 14px;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.resume-job-analysis-panel__intro,
+.resume-job-analysis-panel__history,
+.resume-job-analysis-result__hero {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.resume-job-analysis-panel__intro {
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: rgba(49, 87, 164, 0.08);
+}
+
+.resume-job-analysis-panel__composer,
+.resume-job-analysis-panel__actions,
+.resume-job-analysis-panel__history,
+.resume-job-analysis-result,
+.resume-job-analysis-result__summary,
+.resume-job-analysis-section,
+.resume-job-analysis-list__content,
+.resume-job-analysis-heatmap,
+.resume-job-analysis-heatmap__item {
+  min-width: 0;
+}
+
+.resume-job-analysis-panel__composer {
+  display: grid;
+  gap: 10px;
+}
+
+.resume-job-analysis-panel__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resume-job-analysis-panel__history {
+  justify-content: space-between;
+}
+
+.resume-job-analysis-panel__history-select {
+  width: min(420px, 100%);
+}
+
+.resume-job-analysis-scroll-region {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.resume-job-analysis-result {
+  display: grid;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.resume-job-analysis-result__hero {
+  align-items: stretch;
+  padding: 14px;
+  border: 1px solid rgba(20, 33, 61, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.resume-job-analysis-score {
+  display: grid;
+  place-content: center;
+  width: 84px;
+  min-width: 84px;
+  min-height: 84px;
+  border: 6px solid rgba(49, 87, 164, 0.18);
+  border-radius: 50%;
+  color: #3157a4;
+  text-align: center;
+}
+
+.resume-job-analysis-score strong {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.resume-job-analysis-score span {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.resume-job-analysis-result__summary {
+  display: grid;
+  gap: 8px;
+}
+
+.resume-job-analysis-result__summary .ant-typography,
+.resume-job-analysis-section .ant-typography {
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+}
+
+.resume-job-analysis-section {
+  display: grid;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(20, 33, 61, 0.09);
+}
+
+.resume-job-analysis-list .ant-list-item {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.resume-job-analysis-list__content {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.resume-job-analysis-list__content .ant-space {
+  flex-wrap: wrap;
+}
+
+.resume-job-analysis-heatmap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.resume-job-analysis-heatmap__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid rgba(20, 33, 61, 0.09);
+  border-radius: 8px;
+}
+
+.resume-job-analysis-heatmap__item > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.resume-job-analysis-questions {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+}
+
+.resume-job-analysis-empty {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+}
+
+@media (max-width: 640px) {
+  .responsive-modal-drawer.resume-job-analysis-modal .ant-drawer-body {
+    overflow: hidden !important;
+  }
+
+  .resume-job-analysis-panel {
+    gap: 12px;
+  }
+
+  .resume-job-analysis-panel__actions,
+  .resume-job-analysis-panel__history,
+  .resume-job-analysis-result__hero {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .resume-job-analysis-panel__actions .ant-btn,
+  .resume-job-analysis-panel__history-select {
+    width: 100%;
+  }
+
+  .resume-job-analysis-score {
+    width: 76px;
+    min-width: 76px;
+    min-height: 76px;
+    align-self: center;
+  }
+
+  .resume-job-analysis-heatmap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resume-job-analysis-list .ant-list-item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

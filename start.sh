@@ -81,6 +81,15 @@ if [ "$NODE_MAJOR" -lt "$REQUIRED_NODE_MAJOR" ]; then
   exit 1
 fi
 
+if command -v corepack &>/dev/null; then
+  PNPM=(corepack pnpm)
+elif command -v pnpm &>/dev/null; then
+  PNPM=(pnpm)
+else
+  echo "[ERROR] pnpm is unavailable. Enable Corepack or install pnpm 10.34.5."
+  exit 1
+fi
+
 # --- Check Java version ---
 if ! command -v java &>/dev/null; then
   echo "[ERROR] Java is not installed. Required: JDK ${REQUIRED_JAVA_MAJOR}+"
@@ -101,10 +110,10 @@ echo ""
 
 echo "==> Installing frontend dependencies..."
 cd "$FRONTEND_DIR"
-npm install --silent
+"${PNPM[@]}" install --frozen-lockfile --silent
 
 echo "==> Building frontend..."
-npm run build
+"${PNPM[@]}" build
 
 echo "==> Syncing frontend dist to backend static resources..."
 rm -rf "$BACKEND_STATIC_DIR"
@@ -142,7 +151,7 @@ echo ""
 
 echo "==> Starting frontend dev server..."
 cd "$FRONTEND_DIR"
-npm run dev &
+"${PNPM[@]}" dev &
 FRONTEND_PID=$!
 echo "Frontend dev server PID: $FRONTEND_PID"
 echo "Frontend URL: http://localhost:5173"

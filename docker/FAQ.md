@@ -293,8 +293,8 @@ netstat -ano | findstr :80
    RUN mkdir -p /root/.m2 && \
        echo '<settings><mirrors><mirror><id>aliyun</id><url>https://maven.aliyun.com/repository/public</url><mirrorOf>*</mirrorOf></mirror></mirrors></settings>' > /root/.m2/settings.xml
    
-   # npm 使用淘宝镜像
-   RUN npm config set registry https://registry.npmmirror.com
+   # pnpm 使用淘宝镜像
+   RUN pnpm config set registry https://registry.npmmirror.com
    ```
 
 2. **利用 Docker 缓存**：
@@ -331,7 +331,7 @@ docker-compose -f docker-compose.dev.yml up -d
 
 # 本地启动后端和前端
 cd backend && ./mvnw spring-boot:run
-cd frontend && npm run dev
+cd frontend && pnpm dev
 ```
 
 ### Q: 如何进入容器调试？

@@ -129,5 +129,45 @@
       "medium": "中优先级",
       "low": "低优先级"
     }
+  },
+  "jobAnalysis": {
+    "buttonLabel": "JD 深度审阅",
+    "buttonAria": "打开 JD 深度审阅",
+    "modalTitle": "JD 深度审阅",
+    "currentResume": "当前简历",
+    "professionalReview": "专业审阅",
+    "jdPlaceholder": "粘贴目标岗位的完整 JD，系统将根据当前已保存的简历生成匹配审阅。",
+    "jdHint": "分析前会先保存当前草稿；仅使用简历中可见内容与该 JD。",
+    "jdRequired": "请先填写岗位 JD",
+    "startAnalysis": "开始审阅",
+    "analyzeAgain": "重新审阅",
+    "analysisFailed": "JD 深度审阅失败",
+    "historyTitle": "历史审阅",
+    "historyLoading": "正在加载历史记录",
+    "historyPlaceholder": "选择一条历史审阅",
+    "historyLoadFailed": "加载 JD 审阅历史失败",
+    "historyDetailLoadFailed": "加载 JD 审阅详情失败",
+    "historyOption": "{{time}} · {{score}} 分 {{stale}}",
+    "staleShort": "已过期",
+    "staleTitle": "该审阅结果已过期",
+    "staleDescription": "当前简历内容已变化。请重新审阅后再应用建议，以避免更新到错误的位置。",
+    "appliedAndStale": "建议已应用，当前审阅结果已标记为过期。",
+    "scoreLabel": "JD 匹配 {{score}} 分",
+    "scoreUnit": "分",
+    "scoreCompleted": "JD 匹配评分",
+    "current": "当前内容",
+    "generatedAt": "生成时间：{{time}}",
+    "firstImpressionTitle": "第一印象",
+    "requirementsTitle": "岗位要求匹配",
+    "sectionHeatmapTitle": "简历模块匹配",
+    "critiquesTitle": "优先修改意见",
+    "suggestionsTitle": "可直接应用的建议（{{count}}）",
+    "questionsTitle": "待补充的信息",
+    "emptyDescription": "粘贴岗位 JD 后开始审阅，获得可应用的简历修改建议。",
+    "severity": {
+      "high": "高优先级",
+      "medium": "中优先级",
+      "low": "低优先级"
+    }
   }
 }

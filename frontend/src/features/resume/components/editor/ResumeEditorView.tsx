@@ -1,5 +1,6 @@
 import {
   ArrowLeftOutlined,
+  AuditOutlined,
   DeleteOutlined,
   DownloadOutlined,
   EyeOutlined,
@@ -42,6 +43,7 @@ import { MarkdownMessage } from '../../../../lib/markdown/MarkdownMessage'
 import { rewriteAiResumeBullet } from '../../../ai/api/aiApi'
 import { CoverLetterModal } from '../../../ai/components/CoverLetterModal'
 import { AiResumeAssistant } from '../../../ai/components/AiResumeAssistant'
+import { ResumeJobAnalysisModal } from '../../../ai/components/ResumeJobAnalysisModal'
 import { ResumeScoreButton } from '../../../ai/components/ResumeScoreButton'
 import type {
   AiBulletRewriteResponse,
@@ -90,6 +92,7 @@ interface ResumeEditorViewProps {
   onGenerateCoverLetter: (payload: AiCoverLetterGenerateRequest) => Promise<AiCoverLetter>
   onHideSection: (sectionKey: ResumeSectionKey) => void
   onDragEnd: (event: DragEndEvent) => void
+  onPrepareJobAnalysis: () => Promise<void>
   onRestoredVersion: (resume: ResumeDetail) => Promise<void> | void
   onShowSection: (sectionKey: ResumeSectionKey) => void
   onTranslateResume: (targetLanguage: AiResumeTranslationTarget, mode: AiResumeTranslationMode) => Promise<void>
@@ -140,6 +143,7 @@ export function ResumeEditorView({
   onGenerateCoverLetter,
   onHideSection,
   onDragEnd,
+  onPrepareJobAnalysis,
   onRestoredVersion,
   onShowSection,
   onTranslateResume,
@@ -151,6 +155,7 @@ export function ResumeEditorView({
   translatingResume,
 }: ResumeEditorViewProps) {
   const { t, i18n } = useTranslation('workspace')
+  const { t: aiT } = useTranslation('ai')
   const { message } = App.useApp()
   const isMobile = useIsMobile()
   const [mobileEditorTab, setMobileEditorTab] = useState<'structure' | 'content' | 'preview'>('content')
@@ -162,6 +167,7 @@ export function ResumeEditorView({
   const [versionTimelineOpen, setVersionTimelineOpen] = useState(false)
   const [translationModalOpen, setTranslationModalOpen] = useState(false)
   const [coverLetterModalOpen, setCoverLetterModalOpen] = useState(false)
+  const [jobAnalysisOpen, setJobAnalysisOpen] = useState(false)
   const [translationTarget, setTranslationTarget] = useState<AiResumeTranslationTarget>('ENGLISH')
   const [translationMode, setTranslationMode] = useState<AiResumeTranslationMode>('copy')
   const [shareTitle, setShareTitle] = useState('')
@@ -388,6 +394,11 @@ export function ResumeEditorView({
             </Button>
             <InterviewMenuButton interviewMenuItems={interviewMenuItems} />
             <ResumeScoreButton draft={draft} />
+            <Tooltip title={aiT('jobAnalysis.buttonAria')}>
+              <Button icon={<AuditOutlined />} onClick={() => setJobAnalysisOpen(true)}>
+                {aiT('jobAnalysis.buttonLabel')}
+              </Button>
+            </Tooltip>
             <Button icon={<HistoryOutlined />} onClick={() => setVersionTimelineOpen(true)}>
               {t('editor.versionTimeline')}
             </Button>
@@ -405,6 +416,9 @@ export function ResumeEditorView({
 
           <Space wrap className="resume-editor-shell__actions resume-editor-shell__actions--mobile" style={{ display: 'none' }}>
             <ResumeScoreButton draft={draft} />
+            <Tooltip title={aiT('jobAnalysis.buttonAria')}>
+              <Button icon={<AuditOutlined />} aria-label={aiT('jobAnalysis.buttonAria')} onClick={() => setJobAnalysisOpen(true)} />
+            </Tooltip>
             <MoreActionsMenu
               draftId={draft.id}
               exportingDocx={exportingDocx}
@@ -766,6 +780,15 @@ export function ResumeEditorView({
         open={coverLetterModalOpen}
         onClose={() => setCoverLetterModalOpen(false)}
         onGenerate={onGenerateCoverLetter}
+      />
+
+      <ResumeJobAnalysisModal
+        key={draft.id}
+        draft={draft}
+        open={jobAnalysisOpen}
+        onClose={() => setJobAnalysisOpen(false)}
+        onApplyPatch={onApplyPatch}
+        onPrepareAnalysis={onPrepareJobAnalysis}
       />
 
       <AiResumeAssistant draft={draft} onApplyPatch={onApplyPatch} />

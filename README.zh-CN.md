@@ -162,7 +162,7 @@ smart-resume/
 ### 环境要求
 
 - Java 21
-- Node.js 20.19+ 和 npm
+- Node.js 20.19+ 和 pnpm 10.34.5（通过 Corepack）
 - PostgreSQL
 
 如需使用 AI 功能，还需要以下任意一种：
@@ -209,7 +209,8 @@ export SMART_RESUME_TOKEN_SECRET=change-this-secret
 
 ```bash
 cd frontend
-npm install
+corepack enable
+pnpm install --frozen-lockfile
 cd ..
 ```
 
@@ -271,7 +272,7 @@ cd backend
 
 ```bash
 cd frontend
-npm run dev
+pnpm dev
 ```
 
 然后打开终端中输出的 Vite 地址，通常是 `http://localhost:5173`。
@@ -281,7 +282,7 @@ npm run dev
 ```bash
 cd frontend
 echo 'VITE_API_BASE_URL=http://localhost:8080' > .env.local
-npm run dev
+pnpm dev
 ```
 
 ## 浏览器插件使用方式

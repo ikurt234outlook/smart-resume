@@ -1,13 +1,18 @@
+# syntax=docker/dockerfile:1.7
+
 # 多阶段构建 - 构建阶段
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# 复制 package 文件
-COPY package*.json ./
+# 通过 packageManager 字段激活锁定的 pnpm 版本
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN corepack enable
 
-# 安装全部依赖（构建需要 devDependencies: typescript, vite 等）
-RUN npm ci
+# 复制依赖清单并安装全部依赖（构建需要 devDependencies）
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=smart-resume-pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile --store-dir /pnpm/store
 
 # 复制源代码
 COPY . .
@@ -17,7 +22,7 @@ ARG VITE_API_BASE_URL=""
 ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
 # 构建应用
-RUN npm run build
+RUN pnpm build
 
 # 运行阶段 - 使用 Nginx 托管静态文件
 FROM nginx:1.31

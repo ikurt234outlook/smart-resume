@@ -416,6 +416,14 @@ export function WorkspacePage({
     return generateAiCoverLetter(resumeId, payload)
   }
 
+  const handlePrepareJobAnalysis = useCallback(async () => {
+    if (!resumeId || !draft) {
+      throw new Error(t('editor.missing'))
+    }
+
+    await saveDraftNow(resumeId, draft)
+  }, [draft, resumeId, saveDraftNow, t])
+
   async function handleRestoreResume(targetResumeId: string) {
     await restoreResume(targetResumeId)
     void message.success(t('feedback.restoreSuccess'))
@@ -624,6 +632,7 @@ export function WorkspacePage({
         onFocusModule={focusModule}
         onGenerateCoverLetter={handleGenerateCoverLetter}
         onHideSection={hideSection}
+        onPrepareJobAnalysis={handlePrepareJobAnalysis}
         onRestoredVersion={handleRestoredVersion}
         onShowSection={showSection}
         onTranslateResume={handleTranslateResume}

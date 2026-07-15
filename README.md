@@ -162,7 +162,7 @@ smart-resume/
 ### Prerequisites
 
 - Java 21
-- Node.js 20.19+ and npm
+- Node.js 20.19+ and pnpm 10.34.5 (via Corepack)
 - PostgreSQL
 
 Optional for AI features:
@@ -209,7 +209,8 @@ In PowerShell, use `$env:NAME='value'` instead of `export`.
 
 ```bash
 cd frontend
-npm install
+corepack enable
+pnpm install --frozen-lockfile
 cd ..
 ```
 
@@ -271,7 +272,7 @@ Start the frontend in another terminal:
 
 ```bash
 cd frontend
-npm run dev
+pnpm dev
 ```
 
 Then open the Vite URL shown in the terminal, usually `http://localhost:5173`.
@@ -281,7 +282,7 @@ The frontend uses `http://localhost:8080` by default. To point it to another bac
 ```bash
 cd frontend
 echo 'VITE_API_BASE_URL=http://localhost:8080' > .env.local
-npm run dev
+pnpm dev
 ```
 
 ## Browser Extension Usage
